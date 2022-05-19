@@ -21,6 +21,7 @@ public class Startsida_Agent extends javax.swing.JFrame {
     public Startsida_Agent(InfDB idb) {
         initComponents();
         this.idb = idb;
+        visaAgent();
     }
 
     /**
@@ -35,11 +36,9 @@ public class Startsida_Agent extends javax.swing.JFrame {
         txtMIBPortal = new javax.swing.JLabel();
         dropDown = new javax.swing.JComboBox<>();
         lblAgent = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         btnSok = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -49,23 +48,15 @@ public class Startsida_Agent extends javax.swing.JFrame {
         getContentPane().add(txtMIBPortal, new org.netbeans.lib.awtextra.AbsoluteConstraints(413, 11, -1, 48));
 
         dropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Ändra Lösenord", "Logga ut" }));
-        getContentPane().add(dropDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 20, -1, -1));
+        getContentPane().add(dropDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 30, -1, -1));
         getContentPane().add(lblAgent, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 70, 20));
 
-        jButton1.setText("Visa Agent");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, -1, -1));
-
-        jLabel1.setText("Show aliens in area :");
+        jLabel1.setText("Visa alla Aliens i Område :");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Svealand", "Götaland", "Norrland" }));
         jComboBox1.setDoubleBuffered(true);
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, -1, -1));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, -1, -1));
 
         btnSok.setText("Search");
         btnSok.addActionListener(new java.awt.event.ActionListener() {
@@ -73,27 +64,22 @@ public class Startsida_Agent extends javax.swing.JFrame {
                 btnSokActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSok, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, -1, -1));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mibprojekt/Bild_Startsida_Agent.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(btnSok, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-           try {
+    private void visaAgent(){
+        try {
            String userID = LoggedUser.getUserID();
            String AID = idb.fetchSingle("SELECT Namn FROM Agent WHERE Agent_ID = '" + userID + "'");
            lblAgent.setText(AID);
-           }
-           catch (Exception ettUndantag){
-                        JOptionPane.showMessageDialog(null, "Something went wrong. Please contact your IT-Administrator.");
-                        System.out.println("InternFelmeddelande:" + ettUndantag.getMessage());
-           }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+        }
+        catch (Exception ettUndantag){
+            JOptionPane.showMessageDialog(null, "Something went wrong. Please contact your IT-Administrator.");
+            System.out.println("InternFelmeddelande:" + ettUndantag.getMessage());
+        }
+    }
     private void btnSokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSokActionPerformed
         omrade = jComboBox1.getSelectedItem().toString();
         new Alien_Omrade().setVisible(true);
@@ -147,10 +133,8 @@ public class Startsida_Agent extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSok;
     private javax.swing.JComboBox<String> dropDown;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblAgent;
     private javax.swing.JLabel txtMIBPortal;
     // End of variables declaration//GEN-END:variables
