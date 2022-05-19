@@ -39,6 +39,7 @@ public class Startsida_Agent extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         btnSok = new javax.swing.JButton();
+        btnRegAlien = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -66,6 +67,14 @@ public class Startsida_Agent extends javax.swing.JFrame {
         });
         getContentPane().add(btnSok, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, -1, -1));
 
+        btnRegAlien.setText("Reg Alien");
+        btnRegAlien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegAlienActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRegAlien, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -84,6 +93,10 @@ public class Startsida_Agent extends javax.swing.JFrame {
         omrade = jComboBox1.getSelectedItem().toString();
         new Alien_Omrade().setVisible(true);
     }//GEN-LAST:event_btnSokActionPerformed
+
+    private void btnRegAlienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegAlienActionPerformed
+        new RegAlien(idb).setVisible(true);
+    }//GEN-LAST:event_btnRegAlienActionPerformed
 
     public static String getOmrade(){
         return omrade;
@@ -131,6 +144,7 @@ public class Startsida_Agent extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegAlien;
     private javax.swing.JButton btnSok;
     private javax.swing.JComboBox<String> dropDown;
     private javax.swing.JComboBox<String> jComboBox1;

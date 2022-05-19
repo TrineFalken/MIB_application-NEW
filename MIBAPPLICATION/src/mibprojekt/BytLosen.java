@@ -119,7 +119,7 @@ public class BytLosen extends javax.swing.JFrame {
 
     private void buttonChangePWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChangePWActionPerformed
 
-        if (Validering.isOkLength(fieldOldPW) && Validering.isOkLength(fieldNyttPW) && Validering.isOkLength(fieldNyttPWUpprepa) && Validering.doesNotContainSpace(fieldNyttPW)&& Validering.doesNotContainSpace(fieldNyttPWUpprepa))
+        if (Validering.losenOK(fieldOldPW) && Validering.losenOK(fieldNyttPW) && Validering.losenOK(fieldNyttPWUpprepa))
         {
             String userOldPW = fieldOldPW.getText();
             String userNyttPW = fieldNyttPW.getText();
