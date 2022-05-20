@@ -140,7 +140,7 @@ public class BytLosen extends javax.swing.JFrame {
                             if (!LoggedUser.getIsAdmin())
                                 new Startsida_Agent(idb).setVisible(true);
                             else if(LoggedUser.getIsAdmin())
-                                new Startsida_Admin().setVisible(true);
+                                new Startsida_Admin(idb).setVisible(true);
                             dispose();
                         }
                         else 
@@ -163,7 +163,7 @@ public class BytLosen extends javax.swing.JFrame {
         if (!LoggedUser.getIsAlien() && !LoggedUser.getIsAdmin())
             new Startsida_Agent(idb).setVisible(true);
         else if(!LoggedUser.getIsAlien() && LoggedUser.getIsAdmin())
-            new Startsida_Admin().setVisible(true);
+            new Startsida_Admin(idb).setVisible(true);
         else if(LoggedUser.getIsAlien())
             new Startsida_Alien(idb).setVisible(true); 
               

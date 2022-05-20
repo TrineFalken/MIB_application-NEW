@@ -118,13 +118,12 @@ public class Inlogg extends javax.swing.JFrame {
                     
                     else if(inloggChoice&& isAdminCheck.equals("J")){
                         user =  new LoggedUser(idb, svarID, losenordTva, false, true);
-                        new Startsida_Admin().setVisible(true);                        
+                        new Startsida_Admin(idb).setVisible(true);                        
                     }
            
                     else if(inloggChoice && isAdminCheck.equals("N")){   
                         user =  new LoggedUser(idb, svarID, losenordTva, false, false);
                         new Startsida_Agent(idb).setVisible(true); 
-                        new RegAlien(idb).setVisible(true);
                     }
                     dispose();
                 }

@@ -40,7 +40,13 @@ public class RegAlien extends javax.swing.JFrame {
         setAnsvarigAgent();
         setDate();
     }
-
+    //konstruktor för att ändra alien info
+    public RegAlien(InfDB idb, int alienID){
+        initComponents();
+        this.idb = idb;
+        this.alienID = alienID;
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

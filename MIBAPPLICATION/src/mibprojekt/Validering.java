@@ -5,6 +5,9 @@
  */
 package mibprojekt;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -100,6 +103,26 @@ public class Validering {
             resultat = false;
             rutaAttKolla.requestFocus();
         }
+        return resultat;
+    }
+    
+    public static boolean isDate(JTextField rutaAttKolla){
+        boolean resultat = false;
+        String date = rutaAttKolla.getText();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+        try {
+            // why 2008-02-2x, 20-11-02, 12012-04-05 are valid date?
+            sdf.parse(date);
+            // strict mode - check 30 or 31 days, leap year
+            sdf.setLenient(false);
+            resultat = true;
+
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Please use the YYYY-M-d format when entering a date.");
+            e.printStackTrace();
+            resultat = false;
+        }
+
         return resultat;
     }
 }
