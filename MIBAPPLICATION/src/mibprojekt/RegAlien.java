@@ -187,7 +187,7 @@ public class RegAlien extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegActionPerformed
-        if (setPW() && setNamn()){
+        if (setPW() && setNamn() && setTelefon()){
             setOmrade();
                 try{
                 idb.fetchSingle("INSERT INTO alien (Alien_ID, Registreringsdatum, Losenord, Namn, Telefon, Plats, Ansvarig_agent)"
@@ -198,7 +198,6 @@ public class RegAlien extends javax.swing.JFrame {
                 
                 catch (Exception ettUndantag){
                     System.out.println("InternFelmeddelande:" + ettUndantag.getMessage());  
-                    System.out.println("ojoj");
                 }
             }
     }//GEN-LAST:event_btnRegActionPerformed
@@ -274,9 +273,10 @@ public class RegAlien extends javax.swing.JFrame {
     
     public boolean setPW(){
         boolean ok = true;
-        if(Validering.losenOK(txtLosen)){
         String newPW = txtLosen.getText();
         String newPWUpp = txtLosenUpp.getText();
+        
+        if(Validering.losenOK(txtLosen)){
             if(newPW.equals(newPWUpp)){
                 losen = newPW;
             }
@@ -286,17 +286,29 @@ public class RegAlien extends javax.swing.JFrame {
             }
         } 
         else{
-            JOptionPane.showMessageDialog(null, "Invalid Password. Please remain within the 10 character limit and void using spaces.");  
             ok = false;
         }
         return ok;
-        }
+    }
     
     public boolean setNamn(){
         boolean ok = false;
-        if (Validering.textFaltHarVarde(txtNamn)){
-            namn = txtNamn.getText();
-            ok = true;
+        String forslagNamn = txtNamn.getText();
+        if (Validering.textFaltHarVarde(txtNamn) && Validering.txtHarInteBaraSpace(txtNamn)){
+           try {
+                String nr = idb.fetchSingle("SELECT count(*) from alien where namn = '"+ forslagNamn + "'");
+                int antal = Integer.valueOf(nr);
+                if (antal == 0){
+                    namn = forslagNamn;
+                    ok = true;
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Please chose an unique name for the Alien.");
+                }     
+            }
+            catch(Exception ettUndantag){
+            JOptionPane.showMessageDialog(null, "Something went wrong");         
+            }
         }
         return ok;
     }  
@@ -317,13 +329,17 @@ public class RegAlien extends javax.swing.JFrame {
                 break;
         }              
     }
-    public void setTelefon(){    
+    public boolean setTelefon(){    
+        boolean resultat = false;
         if (txtTelefon.getText().equals("")){
             telefon = null;
+            resultat = true;
         }
         else if(Validering.okPhoneNumber(txtTelefon)){
             telefon = txtTelefon.getText();
+            resultat = true;
         }
+        return resultat;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnReg;

@@ -26,7 +26,18 @@ public class Validering {
         
         return resultat;
     }
-    
+    public static boolean txtHarInteBaraSpace(JTextField rutaAttKolla){
+        boolean resultat = true;
+        
+        String ruta = rutaAttKolla.getText();
+        if(ruta.trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Please enter something other than spaces in the box.");
+            resultat = false;
+            rutaAttKolla.requestFocus(); 
+        }
+        
+        return resultat;
+    }
     public static boolean isHeltal(JTextField rutaAttKolla)
     {
     boolean resultat = true; 
@@ -46,9 +57,9 @@ public class Validering {
     
     public static boolean okPhoneNumber(JTextField rutaAttKolla){
         String inStrang = rutaAttKolla.getText();
-        if (inStrang.matches("[0-9]+") && inStrang.length() > 8 && inStrang.length() < 11) {
+        if (inStrang.matches("[0-9]+") && inStrang.length() > 5 && inStrang.length() < 11) {
             return true;
-        }
+            }
         else{
             JOptionPane.showMessageDialog(null, "Please enter valid phonenumer");
             rutaAttKolla.requestFocus(); 
@@ -71,13 +82,11 @@ public class Validering {
     
     public static boolean losenOK(JTextField rutaAttKolla){
         //kollar att rutan har innehåll samt att tecken är under 10 tecken
-        boolean resultat = true;      
+        boolean resultat = false;      
         String inStrang = rutaAttKolla.getText();
 
-        if(!textFaltHarVarde(rutaAttKolla) && inStrang.length() > 10 && !doesNotContainSpace(rutaAttKolla)) {
-            JOptionPane.showMessageDialog(null, "Please keep your password within the 10symbol limit & avoid using spaces.");
-            resultat = false;
-            rutaAttKolla.requestFocus();            
+        if(textFaltHarVarde(rutaAttKolla) && inStrang.length() < 10 && doesNotContainSpace(rutaAttKolla)) {
+            resultat = true;          
         }
         
         return resultat;
