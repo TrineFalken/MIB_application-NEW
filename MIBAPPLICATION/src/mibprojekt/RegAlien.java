@@ -28,10 +28,13 @@ public class RegAlien extends javax.swing.JFrame {
     private static String namn;
     private static String telefon;
     private static int omrade;
+    private static String ras;
+    private static int rasBenamning;
     private static String ansvarigAgent;
     
     public RegAlien(InfDB idb) {
         initComponents();
+        txtRasBenamning.setVisible(false);
         this.idb = idb;
         setAlienID();
         setAnsvarigAgent();
@@ -64,25 +67,29 @@ public class RegAlien extends javax.swing.JFrame {
         lblVisaAnsvarigAgent = new javax.swing.JLabel();
         lblVisaDatum = new javax.swing.JLabel();
         lblVisaID = new javax.swing.JLabel();
+        lblRas = new javax.swing.JLabel();
+        comboRas = new javax.swing.JComboBox<>();
+        lblRasBenamning = new javax.swing.JLabel();
+        txtRasBenamning = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblAlienNamn.setText("Alien Namn:");
+        lblAlienNamn.setText("Alien Namn: *");
 
         comboOmrade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Örebro", "Västerås", "Vilhelmina", "Borås" }));
         comboOmrade.setDoubleBuffered(true);
 
-        lblAlienID.setText("Alien, ID");
+        lblAlienID.setText("ALIEN ID:");
 
-        lblTelnummer.setText("Telefonnummer");
+        lblTelnummer.setText("Telefonnummer: ");
 
-        lbllRegDatum.setText("regdatum");
+        lbllRegDatum.setText("Datum för Registrering:");
 
-        lblPlaceras.setText("Placeras i");
+        lblPlaceras.setText("Placeras i: ");
 
-        lblLosen.setText("Lösenord:");
+        lblLosen.setText("Lösenord: *");
 
-        lblAnsvarigAgent.setText("ansvarig agent");
+        lblAnsvarigAgent.setText("Ansvarig Agent:");
 
         btnReg.setText("OK");
         btnReg.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +98,16 @@ public class RegAlien extends javax.swing.JFrame {
             }
         });
 
-        lblLosenUpp.setText("upprepa");
+        lblLosenUpp.setText("Upprepa Lösenord: *");
+
+        lblRas.setText("Ras:");
+
+        comboRas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Worm", "Squid", "Boglodite" }));
+        comboRas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboRasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,99 +115,131 @@ public class RegAlien extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(281, 281, 281)
+                        .addComponent(btnReg, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(170, 170, 170))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
-                        .addComponent(lblLosen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtLosen, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblTelnummer)
-                                    .addComponent(lblAlienNamn)
-                                    .addComponent(lblPlaceras)
-                                    .addComponent(lblAlienID))
+                                .addComponent(lblLosen)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(43, 43, 43)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(comboOmrade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtTelefon)
-                                            .addComponent(txtNamn)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(61, 61, 61)
-                                        .addComponent(lblVisaID)))
-                                .addGap(19, 19, 19))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblAnsvarigAgent)
-                                .addComponent(lblVisaAnsvarigAgent, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblLosenUpp)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtLosenUpp, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(91, 91, 91))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblVisaDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(205, 205, 205))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbllRegDatum)
-                        .addContainerGap())))
+                                        .addComponent(lblAnsvarigAgent)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblVisaAnsvarigAgent, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtLosen, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblRas)
+                                .addComponent(lblPlaceras)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblLosenUpp)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtLosenUpp, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(lbllRegDatum)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblVisaDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(223, 223, 223)
-                .addComponent(btnReg, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblTelnummer)
+                    .addComponent(lblAlienNamn)
+                    .addComponent(lblAlienID))
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblVisaID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(comboOmrade, 0, 102, Short.MAX_VALUE)
+                            .addComponent(comboRas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(60, 60, 60)
+                        .addComponent(lblRasBenamning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtRasBenamning, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblAlienID)
-                    .addComponent(lblVisaID))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblVisaID, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblAlienNamn)
-                    .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTelnummer)
+                            .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTelnummer)
-                    .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPlaceras)
-                    .addComponent(comboOmrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblRas)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(comboRas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblRasBenamning, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtRasBenamning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addComponent(lblPlaceras)
+                        .addGap(27, 27, 27))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboOmrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLosen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblLosen)
                     .addComponent(txtLosenUpp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblLosenUpp))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbllRegDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblAnsvarigAgent))
+                    .addComponent(lblVisaAnsvarigAgent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblVisaDatum, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblVisaAnsvarigAgent)
-                    .addComponent(lblVisaDatum))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbllRegDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAnsvarigAgent))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(btnReg)
-                .addContainerGap())
+                .addGap(24, 24, 24))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegActionPerformed
-        if (setPW() && setNamn() && setTelefon()){
-            setOmrade();
+        setRas();
+        setOmrade();
+        if (setPW() && setNamn() && setTelefon() && setRasBenamning()){
                 try{
                 idb.fetchSingle("INSERT INTO alien (Alien_ID, Registreringsdatum, Losenord, Namn, Telefon, Plats, Ansvarig_agent)"
-                    + "Values (" + alienID + ", ' " + regDate + "' , '" + losen + "' , '" + namn + "' , " + telefon + ", " + omrade + ", " + ansvarigAgent + ")");
+                    + "Values (" + alienID + ", ' " + regDate + "' , '" + losen + "' , '" + namn + "' , " + telefon + ", " + omrade + ", " + ansvarigAgent + ")");              
+                switch(ras){
+                    case "Worm":
+                        idb.fetchSingle("INSERT INTO Worm (Alien_ID) VALUES (" + alienID + ")");
+                        break;
+                    case"Squid":
+                        idb.fetchSingle("INSERT INTO Squid (Alien_ID, antal_Armar) VALUES (" + alienID + ", " + rasBenamning + ")");
+                        break;
+                    case "Boglodite":
+                        idb.fetchSingle("INSERT INTO boglodite (Alien_ID, Antal_Boogies)VALUES (" + alienID + ", " + rasBenamning + ")");
+                }
+                
                     System.out.println("OK");
                     dispose();
                 }
@@ -201,6 +249,24 @@ public class RegAlien extends javax.swing.JFrame {
                 }
             }
     }//GEN-LAST:event_btnRegActionPerformed
+
+    private void comboRasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboRasActionPerformed
+       ras = comboRas.getSelectedItem().toString(); 
+       switch(ras){
+           case "Squid":
+               lblRasBenamning.setText("Ange antal armar: ");
+               txtRasBenamning.setVisible(true);
+               break;
+           case "Boglodite":
+               lblRasBenamning.setText("Ange antal boogies: ");
+               txtRasBenamning.setVisible(true);
+               break;
+           case "Worm":
+               lblRasBenamning.setText(" ");
+               txtRasBenamning.setVisible(false);
+               break;
+       }
+    }//GEN-LAST:event_comboRasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -329,6 +395,23 @@ public class RegAlien extends javax.swing.JFrame {
                 break;
         }              
     }
+    public boolean setRasBenamning(){
+        boolean ok = false;
+        if(ras.equals("Boglodite") || ras.equals("Squid")){ 
+            if (Validering.textFaltHarVarde(txtRasBenamning) && Validering.isHeltal(txtRasBenamning)){
+                rasBenamning = Integer.parseInt(txtRasBenamning.getText());
+                ok = true;
+            }
+        }
+        else if (ras.equals("Worm"))
+            ok = true;
+        
+        return ok;
+    }
+    
+    public void setRas(){
+        ras = comboRas.getSelectedItem().toString();      
+    }
     public boolean setTelefon(){    
         boolean resultat = false;
         if (txtTelefon.getText().equals("")){
@@ -344,12 +427,15 @@ public class RegAlien extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnReg;
     private javax.swing.JComboBox<String> comboOmrade;
+    private javax.swing.JComboBox<String> comboRas;
     private javax.swing.JLabel lblAlienID;
     private javax.swing.JLabel lblAlienNamn;
     private javax.swing.JLabel lblAnsvarigAgent;
     private javax.swing.JLabel lblLosen;
     private javax.swing.JLabel lblLosenUpp;
     private javax.swing.JLabel lblPlaceras;
+    private javax.swing.JLabel lblRas;
+    private javax.swing.JLabel lblRasBenamning;
     private javax.swing.JLabel lblTelnummer;
     private javax.swing.JLabel lblVisaAnsvarigAgent;
     private javax.swing.JLabel lblVisaDatum;
@@ -358,6 +444,7 @@ public class RegAlien extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtLosen;
     private javax.swing.JPasswordField txtLosenUpp;
     private javax.swing.JTextField txtNamn;
+    private javax.swing.JTextField txtRasBenamning;
     private javax.swing.JTextField txtTelefon;
     // End of variables declaration//GEN-END:variables
 }

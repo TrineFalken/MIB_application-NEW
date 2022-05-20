@@ -23,13 +23,73 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblBenamning" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="lblUtrustingID" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="lblVisaID" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnOK" min="-2" pref="73" max="-2" attributes="0"/>
+                          <Component id="txtBenamning" min="-2" pref="132" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace pref="114" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="300" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblUtrustingID" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblVisaID" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblBenamning" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtBenamning" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="89" max="32767" attributes="0"/>
+              <Component id="btnOK" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="lblUtrustingID">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Utrustnings ID:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblBenamning">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ben&#xe4;mning:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnOK">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="OK"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOKActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblVisaID">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtBenamning">
+    </Component>
+  </SubComponents>
 </Form>

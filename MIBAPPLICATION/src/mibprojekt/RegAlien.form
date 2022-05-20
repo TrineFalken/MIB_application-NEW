@@ -25,113 +25,140 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="281" max="-2" attributes="0"/>
+                      <Component id="btnReg" min="-2" pref="73" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                      <Component id="lblLosen" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtLosen" min="-2" pref="112" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lblTelnummer" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblAlienNamn" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblPlaceras" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblAlienID" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lblLosen" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="comboOmrade" max="32767" attributes="0"/>
-                                          <Component id="txtTelefon" max="32767" attributes="0"/>
-                                          <Component id="txtNamn" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                                      <Component id="lblVisaID" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblAnsvarigAgent" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="lblVisaAnsvarigAgent" min="-2" pref="59" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="txtLosen" min="-2" pref="112" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblAnsvarigAgent" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblVisaAnsvarigAgent" min="-2" pref="59" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="lblRas" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblPlaceras" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="79" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="lblLosenUpp" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="txtLosenUpp" min="-2" pref="112" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                              <Component id="lbllRegDatum" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="lblVisaDatum" min="-2" pref="70" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="27" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="lblLosenUpp" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txtLosenUpp" min="-2" pref="112" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="lblVisaDatum" min="-2" pref="70" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="205" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="lbllRegDatum" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
-              <Component id="btnReg" min="-2" pref="73" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="lblTelnummer" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblAlienNamn" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblAlienID" alignment="1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtTelefon" min="-2" pref="112" max="-2" attributes="0"/>
+                          <Component id="lblVisaID" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
+                          <Component id="txtNamn" min="-2" pref="72" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="comboOmrade" alignment="0" pref="102" max="32767" attributes="0"/>
+                          <Component id="comboRas" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="lblRasBenamning" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="txtRasBenamning" min="-2" pref="87" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblAlienID" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblVisaID" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblAlienID" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblVisaID" min="-2" pref="17" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="16" pref="16" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblAlienNamn" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="txtNamn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblTelnummer" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtTelefon" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblAlienNamn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtNamn" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblRas" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="comboRas" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblRasBenamning" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="txtRasBenamning" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblTelnummer" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtTelefon" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace pref="13" max="32767" attributes="0"/>
+                      <Component id="lblPlaceras" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="comboOmrade" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblPlaceras" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="comboOmrade" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtLosen" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblLosen" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtLosenUpp" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblLosenUpp" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="lbllRegDatum" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="lblAnsvarigAgent" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="lblVisaAnsvarigAgent" alignment="1" max="32767" attributes="0"/>
+                  <Component id="lblVisaDatum" alignment="1" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblVisaAnsvarigAgent" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblVisaDatum" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbllRegDatum" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                  <Component id="lblAnsvarigAgent" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="29" max="32767" attributes="0"/>
               <Component id="btnReg" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -139,7 +166,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="lblAlienNamn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Alien Namn:"/>
+        <Property name="text" type="java.lang.String" value="Alien Namn: *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="comboOmrade">
@@ -160,32 +187,32 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblAlienID">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Alien, ID"/>
+        <Property name="text" type="java.lang.String" value="ALIEN ID:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTelnummer">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Telefonnummer"/>
+        <Property name="text" type="java.lang.String" value="Telefonnummer: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbllRegDatum">
       <Properties>
-        <Property name="text" type="java.lang.String" value="regdatum"/>
+        <Property name="text" type="java.lang.String" value="Datum f&#xf6;r Registrering:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblPlaceras">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Placeras i"/>
+        <Property name="text" type="java.lang.String" value="Placeras i: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblLosen">
       <Properties>
-        <Property name="text" type="java.lang.String" value="L&#xf6;senord:"/>
+        <Property name="text" type="java.lang.String" value="L&#xf6;senord: *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblAnsvarigAgent">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ansvarig agent"/>
+        <Property name="text" type="java.lang.String" value="Ansvarig Agent:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnReg">
@@ -206,7 +233,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblLosenUpp">
       <Properties>
-        <Property name="text" type="java.lang.String" value="upprepa"/>
+        <Property name="text" type="java.lang.String" value="Upprepa L&#xf6;senord: *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblVisaAnsvarigAgent">
@@ -214,6 +241,32 @@
     <Component class="javax.swing.JLabel" name="lblVisaDatum">
     </Component>
     <Component class="javax.swing.JLabel" name="lblVisaID">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblRas">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ras:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="comboRas">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="Worm"/>
+            <StringItem index="1" value="Squid"/>
+            <StringItem index="2" value="Boglodite"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboRasActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblRasBenamning">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtRasBenamning">
     </Component>
   </SubComponents>
 </Form>

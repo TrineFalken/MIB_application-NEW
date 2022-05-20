@@ -92,5 +92,14 @@ public class Validering {
         return resultat;
     }
 
-    
+    public static boolean okTxtLang(JTextField rutaAttKolla){
+        boolean resultat = true;
+        String inStrang = rutaAttKolla.getText();
+        if(inStrang.length() < 5 || inStrang.length() > 20){
+            JOptionPane.showMessageDialog(null, "Please remain within the 5-20 character limit.");
+            resultat = false;
+            rutaAttKolla.requestFocus();
+        }
+        return resultat;
+    }
 }

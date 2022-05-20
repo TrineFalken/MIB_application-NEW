@@ -5,17 +5,25 @@
  */
 package mibprojekt;
 
+import javax.swing.JOptionPane;
+import oru.inf.InfDB;
+
 /**
  *
  * @author trnfa
  */
 public class RegUtrustning extends javax.swing.JFrame {
 
+    private static InfDB idb;
+    private static int utrustningID;
+    private static String benamning;
     /**
      * Creates new form RegUtrustning
      */
-    public RegUtrustning() {
+    public RegUtrustning(InfDB idb) {
+        this.idb = idb;
         initComponents();
+        setUtrustningsID();
     }
 
     /**
@@ -27,21 +35,79 @@ public class RegUtrustning extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblUtrustingID = new javax.swing.JLabel();
+        lblBenamning = new javax.swing.JLabel();
+        btnOK = new javax.swing.JButton();
+        lblVisaID = new javax.swing.JLabel();
+        txtBenamning = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblUtrustingID.setText("Utrustnings ID:");
+
+        lblBenamning.setText("Benämning:");
+
+        btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBenamning)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblUtrustingID)
+                                .addGap(43, 43, 43)
+                                .addComponent(lblVisaID))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(154, 154, 154)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtBenamning, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUtrustingID)
+                    .addComponent(lblVisaID))
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBenamning)
+                    .addComponent(txtBenamning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addComponent(btnOK)
+                .addGap(66, 66, 66))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        if (setBenamning()){
+                try{
+                idb.fetchSingle("INSERT INTO utrustning (Utrustnings_ID, Benamning)"
+                    + "Values (" + utrustningID + ", ' " + benamning + "' )");
+                    System.out.println("OK");
+                    dispose();
+                }
+                
+                catch (Exception ettUndantag){
+                    System.out.println("InternFelmeddelande:" + ettUndantag.getMessage());  
+                }
+            }
+    }//GEN-LAST:event_btnOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -73,11 +139,39 @@ public class RegUtrustning extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegUtrustning().setVisible(true);
+                new RegUtrustning(idb).setVisible(true);
             }
         });
     }
 
+    public boolean setUtrustningsID(){
+        boolean ok = true;
+        try{
+            int nyttID = Integer.parseInt(idb.fetchSingle("Select MAX(Utrustnings_ID) from utrustning"));
+            nyttID++;
+            utrustningID = nyttID;
+            lblVisaID.setText(String.valueOf(utrustningID));
+        }
+        catch(Exception ettUndantag){
+            JOptionPane.showMessageDialog(null, "Something went wrong. Please contact your IT-Administrator. is not Alien");
+            System.out.println("InternFelmeddelande:" + ettUndantag.getMessage());         
+            ok = false;
+        }
+        return ok;
+    }
+    
+    public boolean setBenamning(){
+        if(Validering.textFaltHarVarde(txtBenamning) && Validering.txtHarInteBaraSpace(txtBenamning)&& Validering.okTxtLang(txtBenamning)){
+            benamning = txtBenamning.getText();
+            return true;
+        }  
+        return false;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnOK;
+    private javax.swing.JLabel lblBenamning;
+    private javax.swing.JLabel lblUtrustingID;
+    private javax.swing.JLabel lblVisaID;
+    private javax.swing.JTextField txtBenamning;
     // End of variables declaration//GEN-END:variables
 }
