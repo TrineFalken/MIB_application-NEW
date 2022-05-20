@@ -39,7 +39,9 @@ public class Startsida_Agent extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         btnSok = new javax.swing.JButton();
-        btnRegAlien = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        cbOmradesChef = new javax.swing.JComboBox<>();
+        lblOmradesChef = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -67,13 +69,17 @@ public class Startsida_Agent extends javax.swing.JFrame {
         });
         getContentPane().add(btnSok, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, -1, -1));
 
-        btnRegAlien.setText("Reg Alien");
-        btnRegAlien.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setText("Visa områdesansvarig:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+
+        cbOmradesChef.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Svealand", "Götaland", "Norrland" }));
+        cbOmradesChef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegAlienActionPerformed(evt);
+                cbOmradesChefActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegAlien, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, -1, -1));
+        getContentPane().add(cbOmradesChef, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, -1, -1));
+        getContentPane().add(lblOmradesChef, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 70, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -91,12 +97,30 @@ public class Startsida_Agent extends javax.swing.JFrame {
     }
     private void btnSokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSokActionPerformed
         omrade = jComboBox1.getSelectedItem().toString();
-        new Alien_Omrade().setVisible(true);
+        new Alien_Omrade(idb).setVisible(true);
     }//GEN-LAST:event_btnSokActionPerformed
 
-    private void btnRegAlienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegAlienActionPerformed
-        new RegAlien(idb).setVisible(true);
-    }//GEN-LAST:event_btnRegAlienActionPerformed
+    private void cbOmradesChefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbOmradesChefActionPerformed
+        // TODO add your handling code here:
+        String chef = null;
+        int chef_ID = 0;
+        try {
+            chef = cbOmradesChef.getSelectedItem().toString();
+            if (chef.equals("Svealand")) {
+                chef_ID = 1;
+            } else if (chef.equals("Götaland")) {
+                chef_ID = 2;
+            } else if (chef.equals("Norrland")) {
+                chef_ID = 4;
+            }
+            String OID = idb.fetchSingle("Select Agent_ID FROM omradeschef WHERE Omrade =" + chef_ID);
+            String CID = idb.fetchSingle("SELECT Namn FROM agent WHERE Agent_ID =" + OID);
+            lblOmradesChef.setText(CID);
+        } catch (Exception ettUndantag) {
+            JOptionPane.showMessageDialog(null, "Something went wrong. Please contact your IT-Administrator.");
+            System.out.println("InternFelmeddelande:" + ettUndantag.getMessage());
+        }
+    }//GEN-LAST:event_cbOmradesChefActionPerformed
 
     public static String getOmrade(){
         return omrade;
@@ -144,12 +168,14 @@ public class Startsida_Agent extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegAlien;
     private javax.swing.JButton btnSok;
+    private javax.swing.JComboBox<String> cbOmradesChef;
     private javax.swing.JComboBox<String> dropDown;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblAgent;
+    private javax.swing.JLabel lblOmradesChef;
     private javax.swing.JLabel txtMIBPortal;
     // End of variables declaration//GEN-END:variables
 }

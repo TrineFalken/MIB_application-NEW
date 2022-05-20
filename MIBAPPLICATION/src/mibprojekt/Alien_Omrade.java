@@ -5,17 +5,23 @@ package mibprojekt;
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
+import javax.swing.JOptionPane;
+import oru.inf.InfDB;
+//import java.util.ArrayList;
 /**
  *
  * @author Felix
  */
 public class Alien_Omrade extends javax.swing.JFrame {
+    private InfDB idb;
     /**
      * Creates new form Alien_Omrade
      */
-    public Alien_Omrade() {
+    public Alien_Omrade(InfDB idb) {
         initComponents();
         alienOmrade();
+        this.idb = idb;
+        //setListaAlien();
     }
 
     /**
@@ -28,6 +34,7 @@ public class Alien_Omrade extends javax.swing.JFrame {
     private void initComponents() {
 
         lblOmrade = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,16 +47,23 @@ public class Alien_Omrade extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(137, 137, 137)
-                .addComponent(lblOmrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(137, 137, 137)
+                        .addComponent(lblOmrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblOmrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(264, Short.MAX_VALUE))
+                .addGap(73, 73, 73)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         pack();
@@ -60,6 +74,32 @@ public class Alien_Omrade extends javax.swing.JFrame {
     lblOmrade.setText(Startsida_Agent.getOmrade()); 
     System.out.println("bra");
     return Startsida_Agent.getOmrade();
+    }
+    
+    /*
+    public String listaAlien() {
+        ArrayList<String> alienInfo;
+        try {
+            int omrade = 0;
+            if (Startsida_Agent.getOmrade().equals("Svealand")) {
+                omrade = 1;
+            } else if (Startsida_Agent.getOmrade().equals("Götaland")) {
+                omrade = 2;
+            } else if (Startsida_Agent.getOmrade().equals("Norrland")) {
+                omrade = 4;
+            }
+            alienInfo = idb.fetchColumn("SELECT Registreringsdatum, Namn, Telefon, Ansvarig_Agent, Alien_ID FROM alien WHERE Plats = " + omrade);
+        } catch (Exception ettUndantag) {
+            JOptionPane.showMessageDialog(null, "Something went wrong. Please contact your IT-Administrator.");
+            System.out.println("InternFelmeddelande:" + ettUndantag.getMessage());
+        }
+        return alienInfo;
+    }
+    
+    public String setListaAlien(){
+        jLabel1.setText(listaAlien());
+        System.out.println(listaAlien());
+        return listaAlien();
     }
     /**
      * @param args the command line arguments
@@ -92,12 +132,13 @@ public class Alien_Omrade extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Alien_Omrade().setVisible(true);
+             //   new Alien_Omrade().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblOmrade;
     // End of variables declaration//GEN-END:variables
 }
