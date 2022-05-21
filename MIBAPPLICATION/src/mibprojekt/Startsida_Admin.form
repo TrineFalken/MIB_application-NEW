@@ -25,14 +25,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="dropDown" min="-2" max="-2" attributes="0"/>
+              <Component id="cbLoggaUt" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
-              <EmptySpace pref="501" max="32767" attributes="0"/>
+              <EmptySpace pref="482" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="btnRegAgent" pref="126" max="32767" attributes="0"/>
                   <Component id="btnRegAlien" max="32767" attributes="0"/>
-                  <Component id="btnRegAgent" pref="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="41" max="32767" attributes="0"/>
           </Group>
@@ -42,7 +42,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="dropDown" min="-2" max="-2" attributes="0"/>
+              <Component id="cbLoggaUt" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnRegAlien" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -53,7 +53,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JComboBox" name="dropDown">
+    <Component class="javax.swing.JComboBox" name="cbLoggaUt">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
@@ -63,6 +63,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbLoggaUtActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -76,6 +79,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Registrera Agent"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegAgentActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

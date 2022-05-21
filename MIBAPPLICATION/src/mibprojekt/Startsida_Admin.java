@@ -32,17 +32,27 @@ public class Startsida_Admin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dropDown = new javax.swing.JComboBox<>();
+        cbLoggaUt = new javax.swing.JComboBox<>();
         btnRegAlien = new javax.swing.JButton();
         btnRegAgent = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        dropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Ändra Lösenord", "Logga ut" }));
+        cbLoggaUt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Ändra Lösenord", "Logga ut" }));
+        cbLoggaUt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbLoggaUtActionPerformed(evt);
+            }
+        });
 
         btnRegAlien.setText("Registrera Alien");
 
         btnRegAgent.setText("Registrera Agent");
+        btnRegAgent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegAgentActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -50,20 +60,20 @@ public class Startsida_Admin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(dropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbLoggaUt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(501, Short.MAX_VALUE)
+                .addContainerGap(482, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRegAlien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRegAgent, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(btnRegAgent, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addComponent(btnRegAlien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(dropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbLoggaUt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRegAlien)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -73,6 +83,23 @@ public class Startsida_Admin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegAgentActionPerformed
+        new RegAgent(idb).setVisible(true);
+    }//GEN-LAST:event_btnRegAgentActionPerformed
+
+    private void cbLoggaUtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLoggaUtActionPerformed
+        String action = cbLoggaUt.getSelectedItem().toString();
+        switch(action){
+            case "Logga ut":
+                System.exit(0);
+                break;
+            case "Ändra Lösenord":
+                new BytLosen(idb).setVisible(true);
+                dispose();
+                break;
+        }
+    }//GEN-LAST:event_cbLoggaUtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -115,6 +142,6 @@ public class Startsida_Admin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegAgent;
     private javax.swing.JButton btnRegAlien;
-    private javax.swing.JComboBox<String> dropDown;
+    private javax.swing.JComboBox<String> cbLoggaUt;
     // End of variables declaration//GEN-END:variables
 }

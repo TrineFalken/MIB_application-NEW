@@ -7,6 +7,7 @@ package mibprojekt;
 
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
+import oru.inf.InfException;
 
 /**
  *
@@ -30,6 +31,7 @@ public class RegAgent extends javax.swing.JFrame {
     public RegAgent(InfDB idb) {
         this.idb = idb;
         initComponents();
+        setAgentID();
     }
 
     /**
@@ -80,6 +82,11 @@ public class RegAgent extends javax.swing.JFrame {
         cbOmrade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Svealand", "Götaland", "Norrland" }));
 
         jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         lblAnstallning.setText("ANstallnings Datum:*");
 
@@ -107,8 +114,8 @@ public class RegAgent extends javax.swing.JFrame {
                             .addComponent(txtLosen)
                             .addComponent(txtTelefon)
                             .addComponent(txtNamn)
-                            .addComponent(lblVisaID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtAnstallning, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))))
+                            .addComponent(txtAnstallning, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                            .addComponent(lblVisaID, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 106, Short.MAX_VALUE)
@@ -127,11 +134,11 @@ public class RegAgent extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
-                        .addComponent(lblAgentID)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblVisaID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addComponent(lblAgentID))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblVisaID, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNamn)
                     .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -167,6 +174,22 @@ public class RegAgent extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (setNamn() && setPW()&& setTelefon()&& setAnstallning()) {
+            setOmrade();
+            setAdmin();
+            System.out.println(agentID + anstallning+  losen+ namn+  telefon+ omrade +isAdmin);
+            try {
+                idb.fetchSingle("INSERT INTO agent (Agent_ID, Namn, Telefon, Anstallningsdatum, Administrator, Losenord, Omrade)" +
+                "VALUES (" + agentID + ", '" + namn + "', '" + telefon + "', '" + anstallning + "', '" + isAdmin + "', '" + losen + "' ," + omrade + ");");
+                dispose();
+            }
+            catch(InfException ettUndantag){
+                System.out.println("InternFelmeddelande:" + ettUndantag.getMessage()); 
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -201,7 +224,32 @@ public class RegAgent extends javax.swing.JFrame {
             }
         });
     }
-    
+        public void setOmrade(){
+            String inOmrade = cbOmrade.getSelectedItem().toString();
+            switch(inOmrade){
+                case "Svealand": 
+                    omrade = 1;
+                    break;
+                case "Götaland":
+                    omrade = 2;
+                    break;
+                case"Norrland":
+                    omrade = 4;
+                    break;
+            }
+        }
+        public void setAdmin(){
+           String isAdminCheck = cbAdmin.getSelectedItem().toString();
+           switch (isAdminCheck){
+            case"Nej":
+                isAdmin = "N";
+                break;
+            case"Ja":
+                isAdmin = "J";
+                break;
+            }
+        }
+        
         public boolean setAgentID(){
         boolean ok = true;
         try{
@@ -267,10 +315,12 @@ public class RegAgent extends javax.swing.JFrame {
         return ok;
     }
     
-    public boolean setRegDatum(){
+    public boolean setAnstallning(){
         boolean ok = false;
-        if (Validering.isDate(txtAnstallning))
+        if (Validering.isDate(txtAnstallning)){
+            anstallning = txtAnstallning.getText();
             ok = true;
+        }    
         
         return ok;
     }

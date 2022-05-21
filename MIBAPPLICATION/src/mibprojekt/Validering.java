@@ -118,11 +118,11 @@ public class Validering {
             resultat = true;
 
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Please use the YYYY-M-d format when entering a date.");
+            JOptionPane.showMessageDialog(null, "Please use the YYYY-MM-DD format when entering a date.");
             e.printStackTrace();
+            rutaAttKolla.requestFocus();
             resultat = false;
         }
-
         return resultat;
     }
 }
