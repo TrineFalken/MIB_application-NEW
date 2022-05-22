@@ -42,6 +42,7 @@ public class Startsida_Agent extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cbOmradesChef = new javax.swing.JComboBox<>();
         lblOmradesChef = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -81,6 +82,14 @@ public class Startsida_Agent extends javax.swing.JFrame {
         getContentPane().add(cbOmradesChef, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, -1, -1));
         getContentPane().add(lblOmradesChef, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 70, 20));
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -97,7 +106,7 @@ public class Startsida_Agent extends javax.swing.JFrame {
     }
     private void btnSokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSokActionPerformed
         omrade = jComboBox1.getSelectedItem().toString();
-        new Alien_Omrade(idb).setVisible(true);
+        new Alien_OmradeNY(idb).setVisible(true);
     }//GEN-LAST:event_btnSokActionPerformed
 
     private void cbOmradesChefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbOmradesChefActionPerformed
@@ -121,6 +130,10 @@ public class Startsida_Agent extends javax.swing.JFrame {
             System.out.println("InternFelmeddelande:" + ettUndantag.getMessage());
         }
     }//GEN-LAST:event_cbOmradesChefActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new Alien_OmradeNY(idb).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static String getOmrade(){
         return omrade;
@@ -171,6 +184,7 @@ public class Startsida_Agent extends javax.swing.JFrame {
     private javax.swing.JButton btnSok;
     private javax.swing.JComboBox<String> cbOmradesChef;
     private javax.swing.JComboBox<String> dropDown;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

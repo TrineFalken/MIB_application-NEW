@@ -32,11 +32,18 @@ public class Startsida_Admin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         cbLoggaUt = new javax.swing.JComboBox<>();
         btnRegAlien = new javax.swing.JButton();
         btnRegAgent = new javax.swing.JButton();
+        cbAgent = new javax.swing.JCheckBox();
+        cbAlien = new javax.swing.JCheckBox();
+        txtFalt = new javax.swing.JTextField();
+        btnSok = new javax.swing.JButton();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cbLoggaUt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Ändra Lösenord", "Logga ut" }));
         cbLoggaUt.addActionListener(new java.awt.event.ActionListener() {
@@ -44,8 +51,10 @@ public class Startsida_Admin extends javax.swing.JFrame {
                 cbLoggaUtActionPerformed(evt);
             }
         });
+        getContentPane().add(cbLoggaUt, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 20, -1, -1));
 
         btnRegAlien.setText("Registrera Alien");
+        getContentPane().add(btnRegAlien, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 126, -1));
 
         btnRegAgent.setText("Registrera Agent");
         btnRegAgent.addActionListener(new java.awt.event.ActionListener() {
@@ -53,33 +62,27 @@ public class Startsida_Admin extends javax.swing.JFrame {
                 btnRegAgentActionPerformed(evt);
             }
         });
+        getContentPane().add(btnRegAgent, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 126, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cbLoggaUt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(482, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRegAgent, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                    .addComponent(btnRegAlien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(41, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cbLoggaUt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnRegAlien)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRegAgent)
-                .addContainerGap(179, Short.MAX_VALUE))
-        );
+        buttonGroup1.add(cbAgent);
+        cbAgent.setText("Agent");
+        getContentPane().add(cbAgent, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, -1));
+
+        buttonGroup1.add(cbAlien);
+        cbAlien.setText("Alien");
+        getContentPane().add(cbAlien, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, -1, -1));
+        getContentPane().add(txtFalt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 160, 30));
+
+        btnSok.setText("SÖK");
+        btnSok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSokActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSok, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 60, 30));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mibprojekt/pictures/Bild_Startsida_Agent.png"))); // NOI18N
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -100,6 +103,10 @@ public class Startsida_Admin extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_cbLoggaUtActionPerformed
+
+    private void btnSokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSokActionPerformed
+        new SokAgent(idb, cbAgent, cbAlien, txtFalt).setVisible(true);
+    }//GEN-LAST:event_btnSokActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,8 +147,14 @@ public class Startsida_Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background;
     private javax.swing.JButton btnRegAgent;
     private javax.swing.JButton btnRegAlien;
+    private javax.swing.JButton btnSok;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBox cbAgent;
+    private javax.swing.JCheckBox cbAlien;
     private javax.swing.JComboBox<String> cbLoggaUt;
+    private javax.swing.JTextField txtFalt;
     // End of variables declaration//GEN-END:variables
 }
