@@ -1,5 +1,6 @@
 package mibprojekt;
 
+import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 
 /*
@@ -105,7 +106,36 @@ public class Startsida_Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_cbLoggaUtActionPerformed
 
     private void btnSokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSokActionPerformed
-        new SokAgent(idb, cbAgent, cbAlien, txtFalt).setVisible(true);
+       // new SokAgentAlien(idb, cbAgent, cbAlien, txtFalt).setVisible(true);
+       String svarID = null;
+       String category = null;
+        if (Validering.textFaltHarVarde(txtFalt)){
+                String sokningNamn = txtFalt.getText();
+            try{
+                if(cbAgent.isSelected()){
+                      svarID = idb.fetchSingle("SELECT agent_ID from agent WHERE Namn= '" + sokningNamn + "'");
+                       category = "agent";
+                }
+                else if (cbAlien.isSelected()){
+                      svarID = idb.fetchSingle("SELECT alien_ID from alien WHERE Namn= '" + sokningNamn + "'");
+                      System.out.println(svarID);
+                      category = "alien";
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Pick a category");
+                }
+            }            
+            catch (Exception annatUndantag){
+                JOptionPane.showMessageDialog(null, "Something went wrong. Please contact your IT-Administrator.");
+                System.out.println("InternFelmeddelande:" + annatUndantag.getMessage());  
+            }
+            if (svarID == null){
+                JOptionPane.showMessageDialog(null, "You have entered wrong username or category.");            
+            }
+            else if(svarID !=null){
+                new SokAgentAlien(idb, svarID, category).setVisible(true);
+            }
+        }
     }//GEN-LAST:event_btnSokActionPerformed
 
     /**
