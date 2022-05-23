@@ -21,19 +21,12 @@ public class SokAgentAlien extends javax.swing.JFrame {
      * Creates new form sokAgent
      */
     private JCheckBox cbChoice;
-    private JTextField searchIndividual;
+
     private InfDB idb;
+  
     private String category;
     private String id;
-    private String namn;
-    private String datum;
-    private String plats;
-    private String telefon;
-
     private String ras = null;
-    private String isAdmin = null;
-    private String ansvarigAgent = null;
-
     
     public SokAgentAlien(InfDB idb, String id, String category) {
         this.idb = idb;
@@ -41,32 +34,74 @@ public class SokAgentAlien extends javax.swing.JFrame {
         this.category = category;
       //  fillRuta();
         initComponents();
-        fyllAllt();
+        fyllRutor();
+    }
+    private String getRas(){
+        try {
+            String isWorm = idb.fetchSingle("SELECT * from worm where alien_ID = " + id);
+            String isSquid = idb.fetchSingle("Select * from squid where alien_ID = " + id);
+            String isBoglodite = idb.fetchSingle("Select * from boglodite where alien_Id = " + id);
+            System.out.println(isWorm + isSquid + isBoglodite);
+            
+            if(isWorm != null)
+                ras = "worm";
+            else if (isSquid != null)
+                ras = "squid";
+            else if (isBoglodite != null)
+                ras = "boglodite";
+            else    
+                System.out.println("error");
+        }
+        catch (Exception e){
+            System.out.println("InternFelmeddelande:" + e.getMessage());
+        }    
+        return ras;
+    }
+    //boglodite
+    //Antal_boogies
+    private String getRasBenamning(){
+        String ben = " ";
+        try{
+            switch(ras){
+                case"squid":
+                    ben = "Antal Armanr: " + idb.fetchSingle("Select antal_armar from squid where alien_id = " + id);
+                    break;
+                case"boglodite":
+                    ben = "Antal Boogies: " + idb.fetchSingle("Select antal_boogies from boglodite where alien_id = " + id);
+                    break;
+            }
+        }
+        catch(Exception e){
+            System.out.println("error");
+        }
+        return ben;
     }
     
-    private void fyllAllt(){
+    private void fyllRutor(){
         lblID.setText("ID: " + id);
-        lblNamn.setText("Namn: " + fyllRuta("namn"));
-        lblTele.setText("Telefon: " + fyllRuta("telefon"));
+        lblNamn.setText("Namn: " + getInfo("namn"));
+        lblTele.setText("Telefon: " + getInfo("telefon"));
         
         switch(category){
             case "alien":
-                lblDatum.setText("Registreringsdatum: " + fyllRuta("registreringsdatum"));
-                lblOmrade.setText("Plats: " + fyllRuta("plats"));
-                lblRas.setText("Ras: ---");
-                lblAnsvarig.setText("Ansvarig Agent: " + fyllRuta("ansvarig_agent"));
+                lblDatum.setText("Registreringsdatum: " + getInfo("registreringsdatum"));
+                lblOmrade.setText("Plats: " + getInfo("plats"));
+                lblRas.setText("Ras: " + getRas());
+                lblRasBenamning.setText(getRasBenamning());
+                lblAnsvarig.setText("Ansvarig Agent: " + getInfo("ansvarig_agent"));
                 lblIsAdmin.setText(" ");
                 break;
             case "agent":
-                lblDatum.setText("Anställningsdatum: " + fyllRuta("anstallningsdatum"));
-                lblOmrade.setText("Område: " + fyllRuta("omrade"));
-                lblIsAdmin.setText("Är Admin: " + fyllRuta("administrator"));
+                lblDatum.setText("Anställningsdatum: " + getInfo("anstallningsdatum"));
+                lblOmrade.setText("Område: " + getInfo("omrade"));
+                lblIsAdmin.setText("Är Admin: " + getInfo("administrator"));
                 lblRas.setText(" ");
                 lblAnsvarig.setText(" ");
+                lblRasBenamning.setText(" ");
         }
     }
 
-    public String fyllRuta(String get){
+    private String getInfo(String get){
         String svar = null;
         try{
             switch(category){
@@ -102,15 +137,21 @@ public class SokAgentAlien extends javax.swing.JFrame {
         lblRas = new javax.swing.JLabel();
         lblDatum = new javax.swing.JLabel();
         lblIsAdmin = new javax.swing.JLabel();
+        lblRasBenamning = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnEdit.setText("EDIT");
-        getContentPane().add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 213, 73, -1));
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 73, -1));
 
         lblNamn.setText("Namn:");
-        getContentPane().add(lblNamn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 34, -1, 20));
+        getContentPane().add(lblNamn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, 20));
 
         lblID.setText("ID:");
         getContentPane().add(lblID, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
@@ -119,22 +160,32 @@ public class SokAgentAlien extends javax.swing.JFrame {
         getContentPane().add(lblTele, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         lblOmrade.setText("Område:");
-        getContentPane().add(lblOmrade, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+        getContentPane().add(lblOmrade, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         lblAnsvarig.setText("Ansvarig agent:");
-        getContentPane().add(lblAnsvarig, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+        getContentPane().add(lblAnsvarig, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
 
         lblRas.setText("Ras:");
-        getContentPane().add(lblRas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        getContentPane().add(lblRas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
         lblDatum.setText("RegDatum:");
         getContentPane().add(lblDatum, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         lblIsAdmin.setText("Är Admin:");
-        getContentPane().add(lblIsAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+        getContentPane().add(lblIsAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
+
+        lblRasBenamning.setText("benamning");
+        getContentPane().add(lblRasBenamning, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 70, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        //switch(category){
+         //   case"agent":
+                new EditAgent(idb, getInfo("namn"),id,getInfo("anstallningsdatum"),getInfo("telefon"), getInfo("omrade"), getInfo("administrator")).setVisible(true);
+       // }
+    }//GEN-LAST:event_btnEditActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,6 +234,7 @@ public class SokAgentAlien extends javax.swing.JFrame {
     private javax.swing.JLabel lblNamn;
     private javax.swing.JLabel lblOmrade;
     private javax.swing.JLabel lblRas;
+    private javax.swing.JLabel lblRasBenamning;
     private javax.swing.JLabel lblTele;
     // End of variables declaration//GEN-END:variables
 }
