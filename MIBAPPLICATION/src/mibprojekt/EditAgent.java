@@ -17,22 +17,22 @@ public class EditAgent extends javax.swing.JFrame {
      * Creates new form EditAgent
      */
     private static InfDB idb;
-    private String orgNamn;
+    private String namn;
     private String id;
-    private String orgDatum;
-    private String orgTelefon;
-    private String orgOmrade;
-    private String orgIsAdmin;  
+    private String datum;
+    private String telefon;
+    private String omrade;
+    private String isAdmin;  
     
     public EditAgent(InfDB idb, String namn, String id, String datum, String telefon, String omrade, String isAdmin) {
         initComponents();
         this.idb= idb;
-        this.orgNamn = namn; 
+        this.namn = namn; 
         this.id = id;
-        this.orgDatum = datum;
-        this.orgTelefon = telefon;
-        this.orgIsAdmin = isAdmin;
-        this.orgOmrade = omrade;
+        this.datum = datum;
+        this.telefon = telefon;
+        this.isAdmin = isAdmin;
+        this.omrade = omrade;
         setStartText();
        // this.isAdmin = isAdmin;
     }
@@ -45,6 +45,18 @@ public class EditAgent extends javax.swing.JFrame {
                 cbIsAdmin.setSelectedItem("Nej");
                 break;
         }
+    }
+    private String getAdmin(){
+        String nyIsAdmin = null;
+        if(cbIsAdmin.getSelectedItem() == "Ja"){
+            nyIsAdmin =  "J";
+        }
+        else if (cbIsAdmin.getSelectedItem() == "Nej"){
+            nyIsAdmin =  "N";
+        }        
+        else
+               System.out.println("error");
+        return nyIsAdmin;
     }
     private String setOmradeStart(String omrade){
         switch(omrade){
@@ -60,13 +72,28 @@ public class EditAgent extends javax.swing.JFrame {
         }
         return omrade;
     }
+    private String getOmrade(){
+        String nyOmrade = null;
+        if(cbOmrade.getSelectedItem() == "Svealand"){
+            nyOmrade = "1";
+        }
+        else if (cbOmrade.getSelectedItem() == "Götaland"){
+            nyOmrade = "2";
+        }
+        else if(cbOmrade.getSelectedItem() == "Norrland"){
+            nyOmrade ="4";
+        }
+        else
+            System.out.println("rror");
+        return nyOmrade;
+    }
     private void setStartText(){
-        setOmradeStart(orgOmrade);
-        setAdminStart(orgIsAdmin);
+        setOmradeStart(omrade);
+        setAdminStart(isAdmin);
         lblID.setText(id);
-        txtNamn.setText(orgNamn);
-        txtDatum.setText(orgDatum);
-        txtTelefon.setText(orgTelefon);
+        txtNamn.setText(namn);
+        txtDatum.setText(datum);
+        txtTelefon.setText(telefon);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -191,11 +218,11 @@ public class EditAgent extends javax.swing.JFrame {
 
         if(Validering.textFaltHarVarde(txtNamn) && Validering.okPhoneNumber(txtTelefon) && Validering.isDate(txtDatum)){
             try{
-            idb.fetchSingle("UPDATE agent SET namn = '"+ orgNamn + "' , telefon = '" + orgTelefon + "' , anstallningsdatum = '" + 
-                    orgDatum + "' , omrade = " + orgOmrade + ", administrator = '" + orgIsAdmin + "' WHERE agent_id = " + id + ";");
+                System.out.println(omrade + isAdmin);
+            idb.fetchSingle("UPDATE agent SET namn = '"+ txtNamn.getText() + "' , telefon = '" + txtTelefon.getText() + "' , anstallningsdatum = '" + 
+                    txtDatum.getText() + "' , omrade = " + getOmrade() + ", administrator = '" + getAdmin() + "' WHERE agent_id = " + id + ";");
             System.out.println("update OK");
-            String svar = idb.fetchSingle("Select namn from agent where agent_id = " + id);
-            System.out.println(svar);
+            dispose();
             }
             catch (Exception e){
                 System.out.println("InternFelmeddelande:" + e.getMessage());  
