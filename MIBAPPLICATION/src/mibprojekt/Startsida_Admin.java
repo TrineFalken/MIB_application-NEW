@@ -41,6 +41,7 @@ public class Startsida_Admin extends javax.swing.JFrame {
         cbAlien = new javax.swing.JCheckBox();
         txtFalt = new javax.swing.JTextField();
         btnSok = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -81,6 +82,14 @@ public class Startsida_Admin extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSok, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 60, 30));
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 160, -1, -1));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mibprojekt/pictures/Bild_Startsida_Agent.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 550));
@@ -138,6 +147,10 @@ public class Startsida_Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSokActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new Alien_Ras(idb).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -185,6 +198,7 @@ public class Startsida_Admin extends javax.swing.JFrame {
     private javax.swing.JCheckBox cbAgent;
     private javax.swing.JCheckBox cbAlien;
     private javax.swing.JComboBox<String> cbLoggaUt;
+    private javax.swing.JButton jButton1;
     private javax.swing.JTextField txtFalt;
     // End of variables declaration//GEN-END:variables
 }

@@ -138,6 +138,7 @@ public class SokAgentAlien extends javax.swing.JFrame {
         lblDatum = new javax.swing.JLabel();
         lblIsAdmin = new javax.swing.JLabel();
         lblRasBenamning = new javax.swing.JLabel();
+        btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -148,7 +149,7 @@ public class SokAgentAlien extends javax.swing.JFrame {
                 btnEditActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 73, -1));
+        getContentPane().add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 73, -1));
 
         lblNamn.setText("Namn:");
         getContentPane().add(lblNamn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, 20));
@@ -177,6 +178,14 @@ public class SokAgentAlien extends javax.swing.JFrame {
         lblRasBenamning.setText("benamning");
         getContentPane().add(lblRasBenamning, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 70, 20));
 
+        btnClose.setText("CLOSE");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -184,8 +193,13 @@ public class SokAgentAlien extends javax.swing.JFrame {
         //switch(category){
          //   case"agent":
                 new EditAgent(idb, getInfo("namn"),id,getInfo("anstallningsdatum"),getInfo("telefon"), getInfo("omrade"), getInfo("administrator")).setVisible(true);
+                dispose();
        // }
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,6 +240,7 @@ public class SokAgentAlien extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClose;
     private javax.swing.JButton btnEdit;
     private javax.swing.JLabel lblAnsvarig;
     private javax.swing.JLabel lblDatum;

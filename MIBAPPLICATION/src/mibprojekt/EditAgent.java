@@ -5,6 +5,7 @@
  */
 package mibprojekt;
 
+import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 
 /**
@@ -18,7 +19,7 @@ public class EditAgent extends javax.swing.JFrame {
      */
     private static InfDB idb;
     private String namn;
-    private String id;
+    private static String id;
     private String datum;
     private String telefon;
     private String omrade;
@@ -36,6 +37,10 @@ public class EditAgent extends javax.swing.JFrame {
         setStartText();
        // this.isAdmin = isAdmin;
     }
+    public EditAgent(){
+        initComponents();
+    }
+    
     private void setAdminStart(String isAdmin){
         switch(isAdmin){
             case"J":
@@ -117,6 +122,8 @@ public class EditAgent extends javax.swing.JFrame {
         txtNamn = new javax.swing.JTextField();
         cbOmrade = new javax.swing.JComboBox<>();
         lblID = new javax.swing.JLabel();
+        btnCancel = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,14 +158,28 @@ public class EditAgent extends javax.swing.JFrame {
 
         lblID.setText("jLabel7");
 
+        btnCancel.setText("CANCEL");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("DELETE ");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
@@ -173,20 +194,30 @@ public class EditAgent extends javax.swing.JFrame {
                             .addComponent(cbIsAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbOmrade, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblID)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblID)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(166, Short.MAX_VALUE))
+                        .addGap(71, 71, 71)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(lblID))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(lblID)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(btnDelete)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -206,9 +237,11 @@ public class EditAgent extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(cbIsAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btnCancel))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -216,12 +249,12 @@ public class EditAgent extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        if(Validering.textFaltHarVarde(txtNamn) && Validering.okPhoneNumber(txtTelefon) && Validering.isDate(txtDatum)){
+        if(setNamn() && Validering.okPhoneNumber(txtTelefon) && Validering.isDate(txtDatum)){
             try{
                 System.out.println(omrade + isAdmin);
-            idb.fetchSingle("UPDATE agent SET namn = '"+ txtNamn.getText() + "' , telefon = '" + txtTelefon.getText() + "' , anstallningsdatum = '" + 
+                idb.fetchSingle("UPDATE agent SET namn = '"+ txtNamn.getText() + "' , telefon = '" + txtTelefon.getText() + "' , anstallningsdatum = '" + 
                     txtDatum.getText() + "' , omrade = " + getOmrade() + ", administrator = '" + getAdmin() + "' WHERE agent_id = " + id + ";");
-            System.out.println("update OK");
+            System.out.println("update OK");       
             dispose();
             }
             catch (Exception e){
@@ -230,6 +263,47 @@ public class EditAgent extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        String input = "You are about to delete an Agent";
+        new ControlWindow(input).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+    
+    public static void deleteAgent(){
+        try{
+            idb.fetchSingle("DELETE FROM agent WHERE agent_id = " + id);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Something went wrong.");
+        }
+    }
+    
+    private boolean setNamn(){
+        String forslagNamn = txtNamn.getText();
+        boolean ok = false;
+        if (Validering.textFaltHarVarde(txtNamn) && Validering.txtHarInteBaraSpace(txtNamn)){
+            try {
+                String nr = idb.fetchSingle("SELECT count(*) from agent where namn = '"+ forslagNamn + "'");
+                int antal = Integer.valueOf(nr);
+                if (antal == 0 || namn.equals(forslagNamn)){
+                    namn = forslagNamn;
+                    ok = true;
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Please chose an unique name for the Agent.");
+                }     
+            }
+            catch(Exception ettUndantag){
+            JOptionPane.showMessageDialog(null, "Something went wrong");         
+            }
+        }
+        return ok;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -266,6 +340,8 @@ public class EditAgent extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JComboBox<String> cbIsAdmin;
     private javax.swing.JComboBox<String> cbOmrade;
     private javax.swing.JButton jButton1;
