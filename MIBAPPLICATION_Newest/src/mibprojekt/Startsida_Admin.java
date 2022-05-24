@@ -56,6 +56,11 @@ public class Startsida_Admin extends javax.swing.JFrame {
         getContentPane().add(cbLoggaUt, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 20, -1, -1));
 
         btnRegAlien.setText("Registrera Alien");
+        btnRegAlien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegAlienActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnRegAlien, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 126, -1));
 
         btnRegAgent.setText("Registrera Agent");
@@ -150,6 +155,10 @@ public class Startsida_Admin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new Alien_Ras(idb).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnRegAlienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegAlienActionPerformed
+        new RegAlien(idb).setVisible(true);
+    }//GEN-LAST:event_btnRegAlienActionPerformed
 
     /**
      * @param args the command line arguments

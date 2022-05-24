@@ -77,6 +77,7 @@ public class EditAgent extends javax.swing.JFrame {
         }
         return omrade;
     }
+    
     private String getOmrade(){
         String nyOmrade = null;
         if(cbOmrade.getSelectedItem() == "Svealand"){
@@ -92,6 +93,7 @@ public class EditAgent extends javax.swing.JFrame {
             System.out.println("rror");
         return nyOmrade;
     }
+    
     private void setStartText(){
         setOmradeStart(omrade);
         setAdminStart(isAdmin);
@@ -251,7 +253,6 @@ public class EditAgent extends javax.swing.JFrame {
 
         if(setNamn() && Validering.okPhoneNumber(txtTelefon) && Validering.isDate(txtDatum)){
             try{
-                System.out.println(omrade + isAdmin);
                 idb.fetchSingle("UPDATE agent SET namn = '"+ txtNamn.getText() + "' , telefon = '" + txtTelefon.getText() + "' , anstallningsdatum = '" + 
                     txtDatum.getText() + "' , omrade = " + getOmrade() + ", administrator = '" + getAdmin() + "' WHERE agent_id = " + id + ";");
             System.out.println("update OK");       

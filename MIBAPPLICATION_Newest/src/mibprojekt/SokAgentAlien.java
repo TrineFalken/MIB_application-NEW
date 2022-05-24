@@ -41,7 +41,6 @@ public class SokAgentAlien extends javax.swing.JFrame {
             String isWorm = idb.fetchSingle("SELECT * from worm where alien_ID = " + id);
             String isSquid = idb.fetchSingle("Select * from squid where alien_ID = " + id);
             String isBoglodite = idb.fetchSingle("Select * from boglodite where alien_Id = " + id);
-            System.out.println(isWorm + isSquid + isBoglodite);
             
             if(isWorm != null)
                 ras = "worm";
@@ -196,7 +195,7 @@ public class SokAgentAlien extends javax.swing.JFrame {
                 dispose();
                 break;
             case"alien":
-                new EditAlien(idb, getInfo("namn"), id, getInfo("registreringsdatum"), getInfo("telfon"),  getInfo("plats"), getInfo("ansvarig_agent")).setVisible(true);
+                new EditAlien(idb, getInfo("namn"), id, getInfo("registreringsdatum"), getInfo("telefon"),  getInfo("plats"), getInfo("ansvarig_agent"), getRas()).setVisible(true);
                 dispose();
                 break;
         }

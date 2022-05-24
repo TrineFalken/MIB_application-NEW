@@ -5,6 +5,7 @@
  */
 package mibprojekt;
 
+import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 
 /**
@@ -21,9 +22,10 @@ public class EditAlien extends javax.swing.JFrame {
     private String plats;
     private String ansvarigAgent;  
     private String ras;
+    private String orgRas;
     private String rasBenamning;
     
-    public EditAlien(InfDB idb, String namn, String id, String datum, String telefon, String plats, String ansvarigAgent) {
+    public EditAlien(InfDB idb, String namn, String id, String datum, String telefon, String plats, String ansvarigAgent, String ras) {
         initComponents();
         this.idb= idb;
         this.namn = namn; 
@@ -32,55 +34,113 @@ public class EditAlien extends javax.swing.JFrame {
         this.telefon = telefon;
         this.ansvarigAgent = ansvarigAgent;
         this.plats = plats;
-      //  this.ras = ras;
-      //  this.rasBenamning = rasBenamning;
+        this.ras = ras;
+        orgRas = ras;
+        this.rasBenamning = rasBenamning;
         setStartText();
     }
     
     private void setStartText(){
         setPlatsStart(plats);
         setRasStart(ras);
-        lblID.setText(id);
+        setRasBenStart();
+        lblVisaID.setText(id);
         txtNamn.setText(namn);
         txtRegDatum.setText(datum);
         txtTelefon.setText(telefon);  
     }
+    
     private String setRasStart(String ras){
-        String ben = " ";
-        try{
-            switch(ras){
-                 case "Worm":
+        switch(ras){
+                 case "worm":
                     cbRas.setSelectedItem("Worm");
                     break;
-                case "Squid":
-                    ben = "Antal Armanr: " + idb.fetchSingle("Select antal_armar from squid where alien_id = " + id);
+                case "squid":
                     cbRas.setSelectedItem("Squid");
                     break;
-                case "Boglodite":
-                    ben = "Antal Boogies: " + idb.fetchSingle("Select antal_boogies from boglodite where alien_id = " + id);
+                case "boglodite":
                     cbRas.setSelectedItem("Boglodite");
                     break;     
             }
+        return ras;
+    }
+    
+    private void setRasBenStart(){
+        //String ben = "";
+        String infoBen = " ";
+        try{
+            switch(ras){
+                case"squid":
+                    //ben = idb.fetchSingle("Select antal_armar from squid where alien_id = " + id);
+                    infoBen = "Antal Armar: ";
+                    break;
+                case"boglodite":
+                   // ben = idb.fetchSingle("Select antal_boogies from boglodite where alien_id = " + id);
+                    infoBen = "Antal Boogies";
+                    break;
+            }
+           // txtBenamning.setText(ben);
+            lblBenamning.setText(infoBen);
         }
         catch(Exception e){
-            System.out.println("ras error");
+            System.out.println("error");
         }
-        txtBenamning.setText(ben);
-        return ras;
+    }
+    private boolean setNamn(){
+        String forslagNamn = txtNamn.getText();
+        boolean ok = false;
+        if (Validering.textFaltHarVarde(txtNamn) && Validering.txtHarInteBaraSpace(txtNamn)){
+            try {
+                String nr = idb.fetchSingle("SELECT count(*) from agent where namn = '"+ forslagNamn + "'");
+                int antal = Integer.valueOf(nr);
+                if (antal == 0 || namn.equals(forslagNamn)){
+                    namn = forslagNamn;
+                    ok = true;
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Please chose an unique name for the Agent.");
+                }     
+            }
+            catch(Exception ettUndantag){
+            JOptionPane.showMessageDialog(null, "Something went wrong");         
+            }
+        }
+        return ok;
     }
     private String setPlatsStart(String plats){
         switch(plats){
             case"1":
-                cbPlats.setSelectedItem("Svealand");
+                cbPlats.setSelectedItem("Örebro");
                 break;
             case"2":
-                cbPlats.setSelectedItem("Götaland");
+                cbPlats.setSelectedItem("Västerås");
+                break;
+            case"3":
+                cbPlats.setSelectedItem("Vilhelmina");
                 break;
             case"4":
-                cbPlats.setSelectedItem("Norrland");
-                break;
+                cbPlats.setSelectedItem("Borås");
+                break;                
         }
         return plats;
+    }
+        private String getPlats(){
+        String nyPlats = null;
+        if(cbPlats.getSelectedItem() == "Örebro"){
+            nyPlats = "1";
+        }
+        else if (cbPlats.getSelectedItem() == "Västerås"){
+            nyPlats = "2";
+        }
+        else if(cbPlats.getSelectedItem() == "Vilhelmina"){
+            nyPlats ="2";
+        }
+        else if(cbPlats.getSelectedItem() == "Borås"){
+            nyPlats ="4";
+        }
+        else
+            System.out.println("Error");
+        return nyPlats;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -132,14 +192,29 @@ public class EditAlien extends javax.swing.JFrame {
         lblBenamning.setText("Benämning: ");
 
         cbRas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Worm", "Squid", "Boglodite" }));
+        cbRas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbRasActionPerformed(evt);
+            }
+        });
 
         cbPlats.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Örebro", "Västerås", "Vilhelmina", "Borås" }));
 
         lblVisaID.setText("jLabel9");
 
         btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("CANCEL");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("DELETE");
 
@@ -238,6 +313,68 @@ public class EditAlien extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private boolean setBenamning(){
+        boolean ok = false;
+            if(ras.equals("Boglodite") || ras.equals("Squid")){ 
+                if (Validering.textFaltHarVarde(txtBenamning) && Validering.isHeltal(txtBenamning)){
+                    rasBenamning = txtBenamning.getText();
+                    ok = true;
+                }
+            }
+            else if (ras.equals("Worm"))
+                ok = true;
+        return ok; 
+    }
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+       if(setNamn() && Validering.okPhoneNumber(txtTelefon) && Validering.isDate(txtRegDatum) && setBenamning()){
+            try{
+                idb.fetchSingle("UPDATE alien SET namn = '" + namn + "', registreringsdatum = '" + txtRegDatum.getText() + "', Telefon = '" + txtTelefon.getText() + 
+                "', Plats = " + getPlats() + "  WHERE alien_ID = " + id);
+                
+                idb.fetchSingle("DELETE FROM " + orgRas + " WHERE alien_id = " + id);
+                switch(ras){
+                    case"Squid":
+                        idb.fetchSingle("INSERT INTO Squid (Alien_ID, Antal_Armar) VALUES(" + id + ", " + rasBenamning + ")");
+                        break;
+                    case"Boglodite":
+                        idb.fetchSingle("INSERT INTO Boglodite (Alien_ID, Antal_Boogies) VALUES(" + id + ", " + rasBenamning + ")");
+                        break;
+                    case"Worm":
+                        idb.fetchSingle("INSERT INTO Worm (Alien_ID) VALUES(" + id + ")");
+                        break;
+                }
+            System.out.println("update OK");       
+            dispose();                
+            }
+            catch (Exception e){
+                System.out.println("InternFelmeddelande:" + e.getMessage());   
+            }
+        }
+    }//GEN-LAST:event_btnOKActionPerformed
+
+    private void cbRasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRasActionPerformed
+               ras = cbRas.getSelectedItem().toString(); 
+       switch(ras){
+           case "Squid":
+               lblBenamning.setText("Ange antal armar: ");
+               txtBenamning.setVisible(true);
+               break;
+           case "Boglodite":
+               lblBenamning.setText("Ange antal boogies: ");
+               txtBenamning.setVisible(true);
+               break;
+           case "Worm":
+               lblBenamning.setText("");
+               txtBenamning.setVisible(false);
+               break;
+       }
+             
+    }//GEN-LAST:event_cbRasActionPerformed
 
     /**
      * @param args the command line arguments
