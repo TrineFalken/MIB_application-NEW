@@ -15,10 +15,11 @@ import oru.inf.InfDB;
  */
 public class RaderaUtrustning extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RaderaUtrustning
-     */
+    private String chosenItem;
+    private static String kategori;
+    private static String id;
     private static InfDB idb;
+    
     public RaderaUtrustning(InfDB idb) {
         initComponents();
         this.idb = idb;
@@ -42,8 +43,18 @@ public class RaderaUtrustning extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnRadera.setText("DELETE");
+        btnRadera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRaderaActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("CANCEL");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         cbUtrustning.setEditable(true);
 
@@ -81,14 +92,64 @@ public class RaderaUtrustning extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+    
+    private  String getChosenItemID(){
+        try{
+        id = idb.fetchSingle("SELECT utrustnings_ID FROM utrustning where benamning = '"+ cbUtrustning.getSelectedItem() + "'");
+        }   
+        catch (Exception e){
+        System.out.println("Error");
+        }
+        return id;
+    }
+    private void btnRaderaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRaderaActionPerformed
+        getChosenItemID();
+        String input = "You are about to delete equipment.";
+        new ControlWindow(input, "utrustning").setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnRaderaActionPerformed
+    
+     public static boolean deleteUtrustning(){
+        getKategori();
+        boolean raderad = false;
+        try{
+            idb.fetchSingle("Delete from utrustning where utrustnings_id = " + id);
+            idb.fetchSingle("Delete from " + kategori + " where utrustnings_id = " + id );
+            raderad = true;
+        }
+        catch(Exception e){
+            System.out.println("radera error");
+        }
+        return raderad;
+    }
+    private static String getKategori(){
+        try{
+            String isVapen = idb.fetchSingle("SELECT * from vapen where utrustnings_id = " + id);
+            String isTeknik = idb.fetchSingle("Select * from teknik where utrustnings_id = " + id);
+            String isKommunikation = idb.fetchSingle("Select * from kommunikation where utrustnings_id = " + id);
+            
+            if(isVapen != null)
+                kategori = "vapen";
+            else if (isTeknik != null)
+                kategori = "teknik";
+            else if (isKommunikation != null)
+                kategori = "kommunikation";
+            else    
+                System.out.println("error");
+        }
+        catch (Exception e){
+            System.out.println("InternFelmeddelande:" + e.getMessage());
+        }    
+        return kategori;        
+    }
     private void fyllcbUtrustning() {
-
-         ArrayList<String> allaOmraden;
-
+        ArrayList<String> allaOmraden;
         try {
             allaOmraden = idb.fetchColumn("Select benamning from utrustning");
-            for (String benamning : allaOmraden) {
-                System.out.println(benamning);
+            for (String benamning : allaOmraden) {        
                 cbUtrustning.addItem(benamning);
             }
         } catch (Exception annatUndantag) {

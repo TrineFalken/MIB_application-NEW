@@ -52,7 +52,7 @@ public class Inlogg extends javax.swing.JFrame {
                 buttonLogOnActionPerformed(evt);
             }
         });
-        getContentPane().add(buttonLogOn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 105, -1));
+        getContentPane().add(buttonLogOn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 105, 30));
         getContentPane().add(fieldName, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 112, -1));
 
         labelName.setText("Name:");

@@ -103,6 +103,9 @@ public class ControlWindow extends javax.swing.JFrame {
             case("agent"):
                 raderad = EditAgent.deleteAgent();
                 break;
+            case("utrustning"):
+                raderad = RaderaUtrustning.deleteUtrustning();
+                break;
         }
         if (raderad)
             JOptionPane.showMessageDialog(null, typ + " Deleted.");

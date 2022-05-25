@@ -63,7 +63,7 @@ public class Startsida_Admin extends javax.swing.JFrame {
                 btnRegAlienActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegAlien, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 126, -1));
+        getContentPane().add(btnRegAlien, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 126, -1));
 
         btnRegAgent.setText("Registrera Agent");
         btnRegAgent.addActionListener(new java.awt.event.ActionListener() {
@@ -71,16 +71,16 @@ public class Startsida_Admin extends javax.swing.JFrame {
                 btnRegAgentActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegAgent, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 126, -1));
+        getContentPane().add(btnRegAgent, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 126, -1));
 
         buttonGroup1.add(cbAgent);
         cbAgent.setText("Agent");
-        getContentPane().add(cbAgent, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, -1));
+        getContentPane().add(cbAgent, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
 
         buttonGroup1.add(cbAlien);
         cbAlien.setText("Alien");
-        getContentPane().add(cbAlien, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, -1, -1));
-        getContentPane().add(txtFalt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 160, 30));
+        getContentPane().add(cbAlien, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, -1, -1));
+        getContentPane().add(txtFalt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 160, 30));
 
         btnSok.setText("SÖK");
         btnSok.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +88,7 @@ public class Startsida_Admin extends javax.swing.JFrame {
                 btnSokActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSok, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 60, 30));
+        getContentPane().add(btnSok, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 60, 30));
 
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +112,7 @@ public class Startsida_Admin extends javax.swing.JFrame {
                 btnRaderaUtrustningActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRaderaUtrustning, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, -1, -1));
+        getContentPane().add(btnRaderaUtrustning, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, -1, -1));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mibprojekt/pictures/Bild_Startsida_Agent.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 550));
