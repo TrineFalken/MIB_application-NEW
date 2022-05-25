@@ -5,6 +5,7 @@
  */
 package mibprojekt;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 
@@ -44,12 +45,24 @@ public class EditAlien extends javax.swing.JFrame {
         setPlatsStart(plats);
         setRasStart(ras);
         setRasBenStart();
+        fyllcbAnsvarig();
+        setAnsvarigAgentStart();
         lblVisaID.setText(id);
         txtNamn.setText(namn);
         txtRegDatum.setText(datum);
-        txtTelefon.setText(telefon);  
+        txtTelefon.setText(telefon); 
+        
     }
-    
+    private void setAnsvarigAgentStart(){
+        String svar = null;
+        try{
+            svar = idb.fetchSingle("Select namn from agent where agent_id = " + ansvarigAgent);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Something went wrong");    
+        }
+        cbAnsvarigAgent.setSelectedItem(svar);
+    }
     private String setRasStart(String ras){
         switch(ras){
                  case "worm":
@@ -66,26 +79,33 @@ public class EditAlien extends javax.swing.JFrame {
     }
     
     private void setRasBenStart(){
-        //String ben = "";
-        String infoBen = " ";
+        /*
+        lblBenamning.setVisible(true);
+        txtBenamning.setVisible(true);
+
         try{
-            switch(ras){
-                case"squid":
-                    //ben = idb.fetchSingle("Select antal_armar from squid where alien_id = " + id);
-                    infoBen = "Antal Armar: ";
-                    break;
-                case"boglodite":
-                   // ben = idb.fetchSingle("Select antal_boogies from boglodite where alien_id = " + id);
-                    infoBen = "Antal Boogies";
-                    break;
-            }
-           // txtBenamning.setText(ben);
-            lblBenamning.setText(infoBen);
+            String benamningSquid = idb.fetchSingle("SELECT antal_armar from SQUID where alien_id = " + id);
+            String benamningBogo = idb.fetchSingle("SELECT antal_boogies from boglodite where alien_id = " + id);
         }
         catch(Exception e){
-            System.out.println("error");
+            
         }
+            switch(ras){
+                case"squid":
+                    System.out.println("hej");
+                    lblBenamning.setText("Antal ArmarOO: ");
+                    break;
+                case"boglodite":
+                    lblBenamning.setText("Antal Boogies");
+                    break;
+                case"worm":
+                    lblBenamning.setVisible(false);
+                    txtBenamning.setVisible(false);
+                    break;
+            }
+        txtBenamning.setText("");*/
     }
+    
     private boolean setNamn(){
         String forslagNamn = txtNamn.getText();
         boolean ok = false;
@@ -142,6 +162,30 @@ public class EditAlien extends javax.swing.JFrame {
             System.out.println("Error");
         return nyPlats;
     }
+    private String getAnsvarigAgent(){
+        String nyAnsvarig = String.valueOf(cbAnsvarigAgent.getSelectedItem()); 
+        try{
+            ansvarigAgent = idb.fetchSingle("SELECT agent_id from agent where namn = '" + nyAnsvarig +"'");
+        }
+        catch(Exception e){
+            System.out.println("error");
+        }
+        return ansvarigAgent;
+    }
+    private void fyllcbAnsvarig() {
+        ArrayList<String> allaAgenter;
+
+        try {
+            allaAgenter = idb.fetchColumn("SELECT namn FROM agent");
+            for (String benamning : allaAgenter) {
+                cbAnsvarigAgent.addItem(benamning);
+            }
+        } catch (Exception annatUndantag) {
+            JOptionPane.showMessageDialog(null, "Something went wrong. Please contact your IT-Administrator.");
+            System.out.println("InternFelmeddelande:" + annatUndantag.getMessage());
+        }      
+    }        
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -186,8 +230,6 @@ public class EditAlien extends javax.swing.JFrame {
         lblRas.setText("Ras: ");
 
         lblAnsvarig.setText("AnsvarigAgent: ");
-
-        cbAnsvarigAgent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblBenamning.setText("Benämning: ");
 
@@ -334,7 +376,7 @@ public class EditAlien extends javax.swing.JFrame {
        if(setNamn() && Validering.okPhoneNumber(txtTelefon) && Validering.isDate(txtRegDatum) && setBenamning()){
             try{
                 idb.fetchSingle("UPDATE alien SET namn = '" + namn + "', registreringsdatum = '" + txtRegDatum.getText() + "', Telefon = '" + txtTelefon.getText() + 
-                "', Plats = " + getPlats() + "  WHERE alien_ID = " + id);
+                "', Plats = " + getPlats() + ", Ansvarig_agent = " + getAnsvarigAgent() + "  WHERE alien_ID = " + id);
                 
                 idb.fetchSingle("DELETE FROM " + orgRas + " WHERE alien_id = " + id);
                 switch(ras){
@@ -359,21 +401,33 @@ public class EditAlien extends javax.swing.JFrame {
 
     private void cbRasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRasActionPerformed
                ras = cbRas.getSelectedItem().toString(); 
+               String squidDesc = "0";
+               String bogoDesc = "0";
+        try{
+             squidDesc = idb.fetchSingle("SELECT antal_armar from SQUID where alien_id = " + id);
+             bogoDesc = idb.fetchSingle("SELECT antal_boogies from boglodite where alien_id = " + id);
+        }
+        catch(Exception e){
+                   
+        }
        switch(ras){
            case "Squid":
+               lblBenamning.setVisible(true);
                lblBenamning.setText("Ange antal armar: ");
                txtBenamning.setVisible(true);
+               txtBenamning.setText(squidDesc);
                break;
            case "Boglodite":
+               lblBenamning.setVisible(true);
                lblBenamning.setText("Ange antal boogies: ");
                txtBenamning.setVisible(true);
+               txtBenamning.setText(bogoDesc);
                break;
            case "Worm":
-               lblBenamning.setText("");
+               lblBenamning.setVisible(false);
                txtBenamning.setVisible(false);
                break;
-       }
-             
+       }      
     }//GEN-LAST:event_cbRasActionPerformed
 
     /**
