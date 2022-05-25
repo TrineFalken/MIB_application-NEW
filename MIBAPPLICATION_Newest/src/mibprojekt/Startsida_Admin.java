@@ -43,6 +43,7 @@ public class Startsida_Admin extends javax.swing.JFrame {
         btnSok = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btnRaderaUtrustning = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -105,6 +106,14 @@ public class Startsida_Admin extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 160, -1, -1));
 
+        btnRaderaUtrustning.setText("RADERA UTRUSTNING");
+        btnRaderaUtrustning.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRaderaUtrustningActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRaderaUtrustning, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, -1, -1));
+
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mibprojekt/pictures/Bild_Startsida_Agent.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 550));
 
@@ -129,8 +138,7 @@ public class Startsida_Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_cbLoggaUtActionPerformed
 
     private void btnSokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSokActionPerformed
-       // new SokAgentAlien(idb, cbAgent, cbAlien, txtFalt).setVisible(true);
-       String svarID = null;
+               String svarID = null;
        String category = null;
         if (Validering.textFaltHarVarde(txtFalt)){
                 String sokningNamn = txtFalt.getText();
@@ -173,6 +181,10 @@ public class Startsida_Admin extends javax.swing.JFrame {
        new Andra_Omradeschef(idb).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btnRaderaUtrustningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRaderaUtrustningActionPerformed
+       new RaderaUtrustning(idb).setVisible(true);
+    }//GEN-LAST:event_btnRaderaUtrustningActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -213,6 +225,7 @@ public class Startsida_Admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
+    private javax.swing.JButton btnRaderaUtrustning;
     private javax.swing.JButton btnRegAgent;
     private javax.swing.JButton btnRegAlien;
     private javax.swing.JButton btnSok;

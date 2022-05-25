@@ -23,7 +23,7 @@ public class EditAlien extends javax.swing.JFrame {
     private String plats;
     private String ansvarigAgent;  
     private String ras;
-    private String orgRas;
+    private static String orgRas;
     private String rasBenamning;
     
     public EditAlien(InfDB idb, String namn, String id, String datum, String telefon, String plats, String ansvarigAgent, String ras) {
@@ -37,14 +37,13 @@ public class EditAlien extends javax.swing.JFrame {
         this.plats = plats;
         this.ras = ras;
         orgRas = ras;
-        this.rasBenamning = rasBenamning;
         setStartText();
     }
     
     private void setStartText(){
         setPlatsStart(plats);
         setRasStart(ras);
-        setRasBenStart();
+        //setRasBenStart();
         fyllcbAnsvarig();
         setAnsvarigAgentStart();
         lblVisaID.setText(id);
@@ -172,6 +171,7 @@ public class EditAlien extends javax.swing.JFrame {
         }
         return ansvarigAgent;
     }
+    
     private void fyllcbAnsvarig() {
         ArrayList<String> allaAgenter;
 
@@ -259,6 +259,11 @@ public class EditAlien extends javax.swing.JFrame {
         });
 
         btnDelete.setText("DELETE");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -278,6 +283,12 @@ public class EditAlien extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtBenamning, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(126, 126, 126)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(98, 98, 98))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cbAnsvarigAgent, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,13 +308,7 @@ public class EditAlien extends javax.swing.JFrame {
                                     .addComponent(cbRas, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(126, 126, 126)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(98, 98, 98))))
+                        .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -430,9 +435,24 @@ public class EditAlien extends javax.swing.JFrame {
        }      
     }//GEN-LAST:event_cbRasActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        String input = "You are about to delete an Alien";
+        new ControlWindow(input, "alien").setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    public static boolean deleteAlien(){
+        boolean raderad = false;
+        try{
+            idb.fetchSingle("DELETE FROM alien WHERE alien_id = " + id);
+            idb.fetchSingle("DELETE FROM " + orgRas + " WHERE alien_id = " + id);
+            raderad = true;
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Something went wrong.");
+        }   
+        return raderad;
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

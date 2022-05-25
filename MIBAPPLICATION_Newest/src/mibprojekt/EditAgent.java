@@ -270,17 +270,20 @@ public class EditAgent extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         String input = "You are about to delete an Agent";
-        new ControlWindow(input).setVisible(true);
+        new ControlWindow(input, "agent").setVisible(true);
         dispose();
     }//GEN-LAST:event_btnDeleteActionPerformed
     
-    public static void deleteAgent(){
+    public static boolean deleteAgent(){
+        boolean raderad = false;
         try{
             idb.fetchSingle("DELETE FROM agent WHERE agent_id = " + id);
+            raderad = true;
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, "Something went wrong.");
         }
+        return raderad;
     }
     
     private boolean setNamn(){

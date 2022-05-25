@@ -82,7 +82,9 @@ public class Andra_Omradeschef extends javax.swing.JFrame {
         String agentID = cbAgentID.getSelectedItem().toString();
         String omrade = cbOmrade.getSelectedItem().toString();
         try {
-            idb.update("UPDATE omradeschef SET agent_id = '" + agentID + "' WHERE benamning = '" + omrade + "'");
+
+            idb.fetchSingle("Delete from omradeschef where omrade = " + getOmrade() + "; Insert Into omradeschef (agent_id, omrade) VALUES ( " + agentID + ", " + getOmrade() + " );");
+
         } 
         catch (Exception annatUndantag) {
             JOptionPane.showMessageDialog(null, "Something went wrong. Please contact your IT-Administrator.");

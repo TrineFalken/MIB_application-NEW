@@ -16,7 +16,11 @@ public class ControlWindow extends javax.swing.JFrame {
     /**
      * Creates new form ControlWindow
      */
-    public ControlWindow(String txt) {
+    String txt;
+    String typ;
+    public ControlWindow(String txt, String typ) {
+        this.txt = txt;
+        this.typ = typ;
         initComponents();
         lblText.setText(txt);
     }
@@ -91,8 +95,19 @@ public class ControlWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnYesActionPerformed
-        EditAgent.deleteAgent();
-        JOptionPane.showMessageDialog(null, "Agent Deleted.");
+        boolean raderad = true;
+        switch(typ){
+            case("alien"):
+                raderad = EditAlien.deleteAlien();
+                break;
+            case("agent"):
+                raderad = EditAgent.deleteAgent();
+                break;
+        }
+        if (raderad)
+            JOptionPane.showMessageDialog(null, typ + " Deleted.");
+        else if (!raderad)
+                JOptionPane.showMessageDialog(null, typ + " Alien har inte raderats.");
         dispose();
     }//GEN-LAST:event_btnYesActionPerformed
 
