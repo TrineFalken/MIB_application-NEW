@@ -40,6 +40,10 @@ public class RegUtrustning extends javax.swing.JFrame {
         btnOK = new javax.swing.JButton();
         lblVisaID = new javax.swing.JLabel();
         txtBenamning = new javax.swing.JTextField();
+        cbKategori = new javax.swing.JComboBox<>();
+        lblKategori = new javax.swing.JLabel();
+        lblEgenskap = new javax.swing.JLabel();
+        txtEgenskap = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,6 +58,17 @@ public class RegUtrustning extends javax.swing.JFrame {
             }
         });
 
+        cbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vapen", "Teknik", "Kommunikation" }));
+        cbKategori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbKategoriActionPerformed(evt);
+            }
+        });
+
+        lblKategori.setText("Kategori:");
+
+        lblEgenskap.setText("Kaliber:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -63,30 +78,44 @@ public class RegUtrustning extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblBenamning)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblUtrustingID)
                                 .addGap(43, 43, 43)
-                                .addComponent(lblVisaID))))
+                                .addComponent(lblVisaID, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblKategori)
+                                .addComponent(lblBenamning))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(49, 49, 49)
+                        .addComponent(lblEgenskap, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBenamning, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtBenamning, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                            .addComponent(cbKategori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtEgenskap))))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUtrustingID)
-                    .addComponent(lblVisaID))
-                .addGap(45, 45, 45)
+                .addGap(61, 61, 61)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblVisaID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblUtrustingID))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBenamning)
                     .addComponent(txtBenamning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblKategori))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEgenskap)
+                    .addComponent(txtEgenskap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(btnOK)
                 .addGap(66, 66, 66))
         );
@@ -95,7 +124,7 @@ public class RegUtrustning extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        if (setBenamning()){
+        if (setBenamning() && setKategori(String.valueOf(cbKategori.getSelectedItem()))){
                 try{
                 idb.fetchSingle("INSERT INTO utrustning (Utrustnings_ID, Benamning)"
                     + "Values (" + utrustningID + ", ' " + benamning + "' )");
@@ -108,6 +137,47 @@ public class RegUtrustning extends javax.swing.JFrame {
                 }
             }
     }//GEN-LAST:event_btnOKActionPerformed
+    private boolean setKategori(String kategori){
+        boolean ok = false;
+        try{
+            switch(kategori){
+                case"Vapen":
+                    if(Validering.isHeltal(txtEgenskap)){
+                    idb.fetchSingle("INSERT INTO vapen (Utrustnings_ID, Kaliber) VALUES(" + utrustningID + ", " + txtEgenskap.getText() + ");");
+                    }
+                    break;
+                case"Teknik":
+                    if(Validering.textFaltHarVarde(txtEgenskap) && Validering.txtHarInteBaraSpace(txtEgenskap)){
+                        idb.fetchSingle("INSERT INTO Teknik(Utrustnings_ID, Kraftkalla) VALUES (" + utrustningID + ", '" + txtEgenskap.getText() + "');");
+                    }
+                    break;
+                case"Kommunikation":
+                    if (Validering.textFaltHarVarde(txtEgenskap) && Validering.txtHarInteBaraSpace(txtEgenskap)){
+                        idb.fetchSingle("INSERT INTO Kommunikation (Utrustnings_ID, Overforingsteknik) VALUES (" + utrustningID + ", '"+ txtEgenskap.getText() + "');");
+                    }
+                    break;  
+            }
+            ok = true;
+        }
+        catch(Exception e){
+            
+        }
+        return ok;
+    }
+    private void cbKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKategoriActionPerformed
+        String selectedItem = String.valueOf(cbKategori.getSelectedItem());    
+        switch(selectedItem){
+            case"Vapen":
+                lblEgenskap.setText("Kaliber: ");
+                break;
+            case"Teknik":
+                lblEgenskap.setText("Kraftkalla: ");
+                break;
+            case"Kommunikation":
+                lblEgenskap.setText("Överföringsteknik: ");
+                break;
+        }
+    }//GEN-LAST:event_cbKategoriActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,9 +239,13 @@ public class RegUtrustning extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOK;
+    private javax.swing.JComboBox<String> cbKategori;
     private javax.swing.JLabel lblBenamning;
+    private javax.swing.JLabel lblEgenskap;
+    private javax.swing.JLabel lblKategori;
     private javax.swing.JLabel lblUtrustingID;
     private javax.swing.JLabel lblVisaID;
     private javax.swing.JTextField txtBenamning;
+    private javax.swing.JTextField txtEgenskap;
     // End of variables declaration//GEN-END:variables
 }

@@ -44,6 +44,7 @@ public class Startsida_Admin extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnRaderaUtrustning = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -113,6 +114,14 @@ public class Startsida_Admin extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnRaderaUtrustning, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, -1, -1));
+
+        jButton3.setText("utrustni");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, -1, -1));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mibprojekt/pictures/Bild_Startsida_Agent.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 550));
@@ -185,6 +194,10 @@ public class Startsida_Admin extends javax.swing.JFrame {
        new RaderaUtrustning(idb).setVisible(true);
     }//GEN-LAST:event_btnRaderaUtrustningActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       new RegUtrustning(idb).setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -235,6 +248,7 @@ public class Startsida_Admin extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbLoggaUt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JTextField txtFalt;
     // End of variables declaration//GEN-END:variables
 }

@@ -96,7 +96,7 @@ public class RaderaUtrustning extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
     
-    private  String getChosenItemID(){
+    private String getChosenItemID(){
         try{
         id = idb.fetchSingle("SELECT utrustnings_ID FROM utrustning where benamning = '"+ cbUtrustning.getSelectedItem() + "'");
         }   
