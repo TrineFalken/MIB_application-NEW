@@ -144,20 +144,22 @@ public class RegUtrustning extends javax.swing.JFrame {
                 case"Vapen":
                     if(Validering.isHeltal(txtEgenskap)){
                     idb.fetchSingle("INSERT INTO vapen (Utrustnings_ID, Kaliber) VALUES(" + utrustningID + ", " + txtEgenskap.getText() + ");");
+                    ok = true;
                     }
                     break;
                 case"Teknik":
                     if(Validering.textFaltHarVarde(txtEgenskap) && Validering.txtHarInteBaraSpace(txtEgenskap)){
                         idb.fetchSingle("INSERT INTO Teknik(Utrustnings_ID, Kraftkalla) VALUES (" + utrustningID + ", '" + txtEgenskap.getText() + "');");
+                    ok = true;
                     }
                     break;
                 case"Kommunikation":
                     if (Validering.textFaltHarVarde(txtEgenskap) && Validering.txtHarInteBaraSpace(txtEgenskap)){
                         idb.fetchSingle("INSERT INTO Kommunikation (Utrustnings_ID, Overforingsteknik) VALUES (" + utrustningID + ", '"+ txtEgenskap.getText() + "');");
+                    ok = true;
                     }
                     break;  
             }
-            ok = true;
         }
         catch(Exception e){
             
